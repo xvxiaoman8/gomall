@@ -17,8 +17,8 @@
 package checkout
 
 import (
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/middleware"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/xvxiaoman8/gomall/app/frontend/middleware"
 )
 
 func rootMw() []app.HandlerFunc {

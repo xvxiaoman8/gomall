@@ -20,8 +20,8 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/biz-demo/gomall/common/utils"
+	"github.com/xvxiaoman8/gomall/app/frontend/conf"
+	"github.com/xvxiaoman8/gomall/common/utils"
 
 	"github.com/cloudwego/hertz/pkg/app/server/registry"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

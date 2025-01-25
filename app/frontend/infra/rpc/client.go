@@ -18,21 +18,22 @@ import (
 	"context"
 	"sync"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/mtl"
-	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
-	"github.com/cloudwego/biz-demo/gomall/common/clientsuite"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/fallback"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
+	"github.com/xvxiaoman8/gomall/app/frontend/conf"
+	"github.com/xvxiaoman8/gomall/app/frontend/infra/mtl"
+	frontendutils "github.com/xvxiaoman8/gomall/app/frontend/utils"
+
+	"github.com/xvxiaoman8/gomall/common/clientsuite"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart/cartservice"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/order/orderservice"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user/userservice"
 )
 
 var (

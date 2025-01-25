@@ -2,11 +2,12 @@ package cart
 
 import (
 	"context"
-	cart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
+	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
+
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart/cartservice"
 )
 
 type RPCClient interface {

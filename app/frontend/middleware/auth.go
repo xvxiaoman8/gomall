@@ -18,9 +18,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/sessions"
+	"github.com/xvxiaoman8/gomall/app/frontend/utils"
 )
 
 func GlobalAuth() app.HandlerFunc {

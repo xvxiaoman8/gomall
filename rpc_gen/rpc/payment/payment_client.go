@@ -2,11 +2,12 @@ package payment
 
 import (
 	"context"
-	payment "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment"
 
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment/paymentservice"
+	payment "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/payment"
+
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/payment/paymentservice"
 )
 
 type RPCClient interface {

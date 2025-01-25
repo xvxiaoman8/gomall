@@ -17,11 +17,11 @@ package service
 import (
 	"context"
 
-	product "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/product"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	rpcproduct "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	product "github.com/xvxiaoman8/gomall/app/frontend/hertz_gen/frontend/product"
+	"github.com/xvxiaoman8/gomall/app/frontend/infra/rpc"
+	rpcproduct "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 )
 
 type GetProductService struct {

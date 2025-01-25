@@ -17,7 +17,7 @@
 package cart
 
 import (
-	cart "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/cart"
+	cart "github.com/xvxiaoman8/gomall/app/frontend/biz/handler/cart"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

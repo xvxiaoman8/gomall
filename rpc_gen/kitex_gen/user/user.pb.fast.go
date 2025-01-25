@@ -53,7 +53,7 @@ func (x *RegisterReq) fastReadField2(buf []byte, _type int8) (offset int, err er
 }
 
 func (x *RegisterReq) fastReadField3(buf []byte, _type int8) (offset int, err error) {
-	x.PasswordConfirm, offset, err = fastpb.ReadString(buf, _type)
+	x.ConfirmPassword, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
 }
 
@@ -169,10 +169,10 @@ func (x *RegisterReq) fastWriteField2(buf []byte) (offset int) {
 }
 
 func (x *RegisterReq) fastWriteField3(buf []byte) (offset int) {
-	if x.PasswordConfirm == "" {
+	if x.ConfirmPassword == "" {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 3, x.GetPasswordConfirm())
+	offset += fastpb.WriteString(buf[offset:], 3, x.GetConfirmPassword())
 	return offset
 }
 
@@ -260,10 +260,10 @@ func (x *RegisterReq) sizeField2() (n int) {
 }
 
 func (x *RegisterReq) sizeField3() (n int) {
-	if x.PasswordConfirm == "" {
+	if x.ConfirmPassword == "" {
 		return n
 	}
-	n += fastpb.SizeString(3, x.GetPasswordConfirm())
+	n += fastpb.SizeString(3, x.GetConfirmPassword())
 	return n
 }
 
@@ -327,7 +327,7 @@ func (x *LoginResp) sizeField1() (n int) {
 var fieldIDToName_RegisterReq = map[int32]string{
 	1: "Email",
 	2: "Password",
-	3: "PasswordConfirm",
+	3: "ConfirmPassword",
 }
 
 var fieldIDToName_RegisterResp = map[int32]string{

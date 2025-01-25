@@ -17,7 +17,7 @@
 package order
 
 import (
-	order "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/order"
+	order "github.com/xvxiaoman8/gomall/app/frontend/biz/handler/order"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -19,8 +19,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/utils"
 
-	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/hertz/pkg/app"
+	common "github.com/xvxiaoman8/gomall/app/frontend/hertz_gen/frontend/common"
 )
 
 type AboutService struct {

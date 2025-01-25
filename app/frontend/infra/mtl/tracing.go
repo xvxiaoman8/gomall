@@ -17,8 +17,8 @@ package mtl
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/route"
+	"github.com/xvxiaoman8/gomall/app/frontend/utils"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/sdk/resource"

@@ -18,13 +18,13 @@ import (
 	"context"
 	"strconv"
 
-	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
-	rpccart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
-	rpcproduct "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	common "github.com/xvxiaoman8/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/xvxiaoman8/gomall/app/frontend/infra/rpc"
+	frontendutils "github.com/xvxiaoman8/gomall/app/frontend/utils"
+	rpccart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
+	rpcproduct "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 )
 
 type GetCartService struct {

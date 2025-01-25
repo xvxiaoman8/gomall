@@ -20,11 +20,6 @@ import (
 	"context"
 	"os"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/biz/router"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/mtl"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/middleware"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -40,6 +35,11 @@ import (
 	"github.com/hertz-contrib/sessions"
 	"github.com/hertz-contrib/sessions/redis"
 	"github.com/joho/godotenv"
+	"github.com/xvxiaoman8/gomall/app/frontend/biz/router"
+	"github.com/xvxiaoman8/gomall/app/frontend/conf"
+	"github.com/xvxiaoman8/gomall/app/frontend/infra/mtl"
+	"github.com/xvxiaoman8/gomall/app/frontend/infra/rpc"
+	"github.com/xvxiaoman8/gomall/app/frontend/middleware"
 	oteltrace "go.opentelemetry.io/otel/trace"
 )
 
