@@ -16,6 +16,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	hertzUtils "github.com/cloudwego/hertz/pkg/common/utils"
@@ -61,7 +62,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
-
+	fmt.Println(resp)
 	c.Redirect(consts.StatusFound, []byte(resp))
 }
 

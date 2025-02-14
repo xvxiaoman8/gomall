@@ -4,9 +4,9 @@ import (
 	"context"
 	user "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user"
 
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
-	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user/userservice"
 )
 
 type RPCClient interface {
@@ -14,6 +14,8 @@ type RPCClient interface {
 	Service() string
 	Register(ctx context.Context, Req *user.RegisterReq, callOptions ...callopt.Option) (r *user.RegisterResp, err error)
 	Login(ctx context.Context, Req *user.LoginReq, callOptions ...callopt.Option) (r *user.LoginResp, err error)
+	Delete(ctx context.Context, Req *user.DeleteReq, callOptions ...callopt.Option) (r *user.DeleteResp, err error)
+	Modify(ctx context.Context, Req *user.ModifyReq, callOptions ...callopt.Option) (r *user.ModifyResp, err error)
 }
 
 func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
@@ -48,4 +50,12 @@ func (c *clientImpl) Register(ctx context.Context, Req *user.RegisterReq, callOp
 
 func (c *clientImpl) Login(ctx context.Context, Req *user.LoginReq, callOptions ...callopt.Option) (r *user.LoginResp, err error) {
 	return c.kitexClient.Login(ctx, Req, callOptions...)
+}
+
+func (c *clientImpl) Delete(ctx context.Context, Req *user.DeleteReq, callOptions ...callopt.Option) (r *user.DeleteResp, err error) {
+	return c.kitexClient.Delete(ctx, Req, callOptions...)
+}
+
+func (c *clientImpl) Modify(ctx context.Context, Req *user.ModifyReq, callOptions ...callopt.Option) (r *user.ModifyResp, err error) {
+	return c.kitexClient.Modify(ctx, Req, callOptions...)
 }

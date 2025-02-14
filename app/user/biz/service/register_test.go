@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	user "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user"
 	"testing"
+
+	user "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/user"
 )
 
 func TestRegister_Run(t *testing.T) {
@@ -17,5 +18,4 @@ func TestRegister_Run(t *testing.T) {
 	t.Logf("resp: %v", resp)
 
 	// todo: edit your unit test
-
 }

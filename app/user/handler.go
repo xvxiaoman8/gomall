@@ -22,3 +22,17 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.LoginReq) (resp *
 
 	return resp, err
 }
+
+// Delete implements the UserServiceImpl interface.
+func (s *UserServiceImpl) Delete(ctx context.Context, req *user.DeleteReq) (resp *user.DeleteResp, err error) {
+	resp, err = service.NewDeleteService(ctx).Run(req)
+
+	return resp, err
+}
+
+// Modify implements the UserServiceImpl interface.
+func (s *UserServiceImpl) Modify(ctx context.Context, req *user.ModifyReq) (resp *user.ModifyResp, err error) {
+	resp, err = service.NewModifyService(ctx).Run(req)
+
+	return resp, err
+}
