@@ -44,3 +44,9 @@ gen-checkout:
 gen-order: 
 	@cd rpc_gen && cwgo client --type RPC --service order --module github.com/xvxiaoman8/gomall/rpc_gen  -I ../idl  --idl ../idl/order.proto
 	@cd app/order && cwgo server --type RPC --service order --module github.com/xvxiaoman8/gomall/app/order --pass "-use github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/order.proto
+
+
+.PHONY:
+gen-auth:
+	@cd  rpc_gen && cwgo client --type RPC --service auth --module ${ROOT_MOD}/rpc_gen  -I ../idl  --idl ../idl/auth.proto
+	@cd  app/auth && cwgo server --type RPC --service auth --module ${ROOT_MOD}/app/user --pass "-use ${ROOT_MOD}/rpc_gen/kitex_gen"  -I ../../idl  --idl ../../idl/auth.proto
