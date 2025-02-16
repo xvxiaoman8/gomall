@@ -3,8 +3,8 @@
 package cartservice
 
 import (
-	server "github.com/cloudwego/kitex/server"
 	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
+	server "github.com/cloudwego/kitex/server"
 )
 
 // NewInvoker creates a server.Invoker with the given handler and options.

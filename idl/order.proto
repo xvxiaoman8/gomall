@@ -10,6 +10,8 @@ service OrderService {
   rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderResp) {}
   rpc ListOrder(ListOrderReq) returns (ListOrderResp) {}
   rpc MarkOrderPaid(MarkOrderPaidReq) returns (MarkOrderPaidResp) {}
+  rpc UpdateOrder(UpdateOrderReq) returns (UpdateOrderResp) {}  // 新增的RPC方法
+  rpc DeleteOrder(DeleteOrderReq) returns (DeleteOrderResp) {}  // 新增的RPC方法
 }
 
 message Address {
@@ -66,3 +68,24 @@ message MarkOrderPaidReq {
 }
 
 message MarkOrderPaidResp {}
+
+// 新增的请求和响应消息
+message UpdateOrderReq {
+  string order_id = 1;  // 要修改的订单ID
+  uint32 user_id = 2;   // 用户ID，用于验证权限
+  Address address = 3;  // 新的地址信息（可选）
+  string email = 4;     // 新的邮箱信息（可选）
+}
+
+message UpdateOrderResp {
+  OrderResult order = 1;  // 返回更新后的订单信息
+}
+
+message DeleteOrderReq {
+  string order_id = 1;  
+  uint32 user_id = 2;   
+}
+
+message DeleteOrderResp {
+  OrderResult order = 1;  // 返回更新后的订单信息
+}

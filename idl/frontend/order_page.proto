@@ -5,10 +5,46 @@ package frontend.order;
 import "api.proto";
 import "frontend/common.proto";
 
-option go_package = "/frontend/order";
+option go_package = "frontend/order";
+
+message UpdateOrderPageReq {
+  string order_id = 1 [(api.path) = "order_id"];
+}
+
+message Address {
+  string street_address = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  int32 zip_code = 5;
+}
+
+message UpdateOrderReq {
+  string order_id = 1 [(api.form) = "orderId"];
+  uint32 user_id = 2 [(api.form) = "userId"];
+  string email = 3 [(api.form) = "email"];
+  Address address = 4 [(api.form) = "address"];
+}
+
+message DeleteOrderReq {
+  string order_id = 1 [(api.form) = "orderId"];
+  uint32 user_id = 2 [(api.form) = "userId"];
+}
 
 service OrderService {
   rpc OrderList(common.Empty) returns (common.Empty) {
     option (api.get) = "/order";
+  }
+
+  rpc UpdateOrderPage(UpdateOrderPageReq) returns (common.Empty) {
+    option (api.get) = "/order/update/:order_id";
+  }
+
+  rpc UpdateOrder(UpdateOrderReq) returns (common.Empty) {
+    option (api.post) = "/order/update/:order_id";
+  }
+  
+  rpc DeleteOrder(DeleteOrderReq) returns (common.Empty) {
+    option (api.post) = "/order/delete/:order_id";
   }
 }

@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
 	order "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/order"
@@ -29,6 +30,24 @@ func MarkOrderPaid(ctx context.Context, req *order.MarkOrderPaidReq, callOptions
 	resp, err = defaultClient.MarkOrderPaid(ctx, req, callOptions...)
 	if err != nil {
 		klog.CtxErrorf(ctx, "MarkOrderPaid call failed,err =%+v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func UpdateOrder(ctx context.Context, req *order.UpdateOrderReq, callOptions ...callopt.Option) (resp *order.UpdateOrderResp, err error) {
+	resp, err = defaultClient.UpdateOrder(ctx, req, callOptions...)
+	if err != nil {
+		klog.CtxErrorf(ctx, "UpdateOrder call failed,err =%+v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func DeleteOrder(ctx context.Context, req *order.DeleteOrderReq, callOptions ...callopt.Option) (resp *order.DeleteOrderResp, err error) {
+	resp, err = defaultClient.DeleteOrder(ctx, req, callOptions...)
+	if err != nil {
+		klog.CtxErrorf(ctx, "DeleteOrder call failed,err =%+v", err)
 		return nil, err
 	}
 	return resp, nil

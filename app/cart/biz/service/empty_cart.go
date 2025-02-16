@@ -1,7 +1,25 @@
+// Copyright 2024 CloudWeGo Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package service
 
 import (
 	"context"
+
+	"github.com/cloudwego/kitex/pkg/kerrors"
+	"github.com/xvxiaoman8/gomall/app/cart/biz/dal/mysql"
+	"github.com/xvxiaoman8/gomall/app/cart/biz/model"
 	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
 )
 
@@ -15,6 +33,10 @@ func NewEmptyCartService(ctx context.Context) *EmptyCartService {
 // Run create note info
 func (s *EmptyCartService) Run(req *cart.EmptyCartReq) (resp *cart.EmptyCartResp, err error) {
 	// Finish your business logic.
+	err = model.EmptyCart(mysql.DB, s.ctx, req.GetUserId())
+	if err != nil {
+		return &cart.EmptyCartResp{}, kerrors.NewBizStatusError(50001, "empty cart error")
+	}
 
-	return
+	return &cart.EmptyCartResp{}, nil
 }
