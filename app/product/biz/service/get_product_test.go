@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	product "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
+	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 	"testing"
 )
 
@@ -19,3 +19,19 @@ func TestGetProduct_Run(t *testing.T) {
 	// todo: edit your unit test
 
 }
+
+//func TestGetProduct_Run(t *testing.T) {
+//	ctx := context.Background()
+//	s := NewGetProductService(ctx)
+//	// init req and assert value
+//
+//	req := &product.GetProductRequest{}
+//	resp, err := s.Run(req)
+//	if err != nil {
+//		t.Errorf("unexpected error: %v", err)
+//	}
+//	if resp == nil {
+//		t.Errorf("unexpected nil response")
+//	}
+//	// // todo: edit your unit test
+//}

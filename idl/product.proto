@@ -4,45 +4,56 @@ package product;
 
 option go_package = "/product";
 
+// 定义产品目录服务
 service ProductCatalogService {
+  // 获取产品列表
   rpc ListProducts(ListProductsReq) returns (ListProductsResp) {}
+
+  // 获取单个产品信息
   rpc GetProduct(GetProductReq) returns (GetProductResp) {}
+
+  // 搜索产品
   rpc SearchProducts(SearchProductsReq) returns (SearchProductsResp) {}
 }
 
-message ListProductsReq{
-  int32 page = 1;
-  int64 pageSize = 2;
-
-  string categoryName = 3;
+// 获取产品列表请求
+message ListProductsReq {
+  int32 page = 1;        // 请求的页码
+  int64 pageSize = 2;    // 每页显示的产品数量
+  string categoryName = 3; // 所属的产品分类名称
 }
 
+// 产品信息定义
 message Product {
-  uint32 id = 1;
-  string name = 2;
-  string description = 3;
-  string picture = 4;
-  float price = 5;
-
-  repeated string categories = 6;
+  uint32 id = 1;        // 产品的唯一标识符
+  string name = 2;      // 产品名称
+  string description = 3; // 产品描述
+  string picture = 4;   // 产品图片URL
+  float price = 5;      // 产品价格
+  repeated string categories = 6; // 产品分类列表（一个商品属于多个类别）
 }
 
+// 获取产品列表响应
 message ListProductsResp {
-  repeated Product products = 1;
+  repeated Product products = 1; // 返回的产品列表
 }
 
+// 获取单个产品请求
 message GetProductReq {
-  uint32 id = 1;
+  uint32 id = 1;        // 要获取的产品的唯一标识符
 }
 
+// 获取单个产品响应
 message GetProductResp {
-  Product product = 1;
+  Product product = 1;  // 返回的产品信息
 }
 
+// 搜索产品请求
 message SearchProductsReq {
-  string query = 1;
+  string query = 1;     // 搜索关键词
 }
 
+// 搜索产品响应
 message SearchProductsResp {
-  repeated Product results = 1;
+  repeated Product results = 1; // 搜索到的产品列表
 }
