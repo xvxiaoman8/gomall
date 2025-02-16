@@ -10,4 +10,5 @@ use (
 	./app/user
 	common
 	app/product
+	app/auth
 )

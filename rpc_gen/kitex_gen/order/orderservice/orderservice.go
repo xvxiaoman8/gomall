@@ -5,10 +5,10 @@ package orderservice
 import (
 	"context"
 	"errors"
+	order "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/order"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"
-	order "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/order"
 	proto "google.golang.org/protobuf/proto"
 )
 
@@ -33,6 +33,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		markOrderPaidHandler,
 		newMarkOrderPaidArgs,
 		newMarkOrderPaidResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingUnary),
+	),
+	"UpdateOrder": kitex.NewMethodInfo(
+		updateOrderHandler,
+		newUpdateOrderArgs,
+		newUpdateOrderResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingUnary),
+	),
+	"DeleteOrder": kitex.NewMethodInfo(
+		deleteOrderHandler,
+		newDeleteOrderArgs,
+		newDeleteOrderResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingUnary),
 	),
@@ -561,6 +575,312 @@ func (p *MarkOrderPaidResult) GetResult() interface{} {
 	return p.Success
 }
 
+func updateOrderHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(order.UpdateOrderReq)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(order.OrderService).UpdateOrder(ctx, req)
+		if err != nil {
+			return err
+		}
+		return st.SendMsg(resp)
+	case *UpdateOrderArgs:
+		success, err := handler.(order.OrderService).UpdateOrder(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*UpdateOrderResult)
+		realResult.Success = success
+		return nil
+	default:
+		return errInvalidMessageType
+	}
+}
+func newUpdateOrderArgs() interface{} {
+	return &UpdateOrderArgs{}
+}
+
+func newUpdateOrderResult() interface{} {
+	return &UpdateOrderResult{}
+}
+
+type UpdateOrderArgs struct {
+	Req *order.UpdateOrderReq
+}
+
+func (p *UpdateOrderArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(order.UpdateOrderReq)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *UpdateOrderArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *UpdateOrderArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *UpdateOrderArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, nil
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *UpdateOrderArgs) Unmarshal(in []byte) error {
+	msg := new(order.UpdateOrderReq)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var UpdateOrderArgs_Req_DEFAULT *order.UpdateOrderReq
+
+func (p *UpdateOrderArgs) GetReq() *order.UpdateOrderReq {
+	if !p.IsSetReq() {
+		return UpdateOrderArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *UpdateOrderArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *UpdateOrderArgs) GetFirstArgument() interface{} {
+	return p.Req
+}
+
+type UpdateOrderResult struct {
+	Success *order.UpdateOrderResp
+}
+
+var UpdateOrderResult_Success_DEFAULT *order.UpdateOrderResp
+
+func (p *UpdateOrderResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(order.UpdateOrderResp)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *UpdateOrderResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *UpdateOrderResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *UpdateOrderResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, nil
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *UpdateOrderResult) Unmarshal(in []byte) error {
+	msg := new(order.UpdateOrderResp)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *UpdateOrderResult) GetSuccess() *order.UpdateOrderResp {
+	if !p.IsSetSuccess() {
+		return UpdateOrderResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *UpdateOrderResult) SetSuccess(x interface{}) {
+	p.Success = x.(*order.UpdateOrderResp)
+}
+
+func (p *UpdateOrderResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *UpdateOrderResult) GetResult() interface{} {
+	return p.Success
+}
+
+func deleteOrderHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(order.DeleteOrderReq)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(order.OrderService).DeleteOrder(ctx, req)
+		if err != nil {
+			return err
+		}
+		return st.SendMsg(resp)
+	case *DeleteOrderArgs:
+		success, err := handler.(order.OrderService).DeleteOrder(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*DeleteOrderResult)
+		realResult.Success = success
+		return nil
+	default:
+		return errInvalidMessageType
+	}
+}
+func newDeleteOrderArgs() interface{} {
+	return &DeleteOrderArgs{}
+}
+
+func newDeleteOrderResult() interface{} {
+	return &DeleteOrderResult{}
+}
+
+type DeleteOrderArgs struct {
+	Req *order.DeleteOrderReq
+}
+
+func (p *DeleteOrderArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(order.DeleteOrderReq)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *DeleteOrderArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *DeleteOrderArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *DeleteOrderArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, nil
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *DeleteOrderArgs) Unmarshal(in []byte) error {
+	msg := new(order.DeleteOrderReq)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var DeleteOrderArgs_Req_DEFAULT *order.DeleteOrderReq
+
+func (p *DeleteOrderArgs) GetReq() *order.DeleteOrderReq {
+	if !p.IsSetReq() {
+		return DeleteOrderArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *DeleteOrderArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *DeleteOrderArgs) GetFirstArgument() interface{} {
+	return p.Req
+}
+
+type DeleteOrderResult struct {
+	Success *order.DeleteOrderResp
+}
+
+var DeleteOrderResult_Success_DEFAULT *order.DeleteOrderResp
+
+func (p *DeleteOrderResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(order.DeleteOrderResp)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *DeleteOrderResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *DeleteOrderResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *DeleteOrderResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, nil
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *DeleteOrderResult) Unmarshal(in []byte) error {
+	msg := new(order.DeleteOrderResp)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *DeleteOrderResult) GetSuccess() *order.DeleteOrderResp {
+	if !p.IsSetSuccess() {
+		return DeleteOrderResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *DeleteOrderResult) SetSuccess(x interface{}) {
+	p.Success = x.(*order.DeleteOrderResp)
+}
+
+func (p *DeleteOrderResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *DeleteOrderResult) GetResult() interface{} {
+	return p.Success
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -596,6 +916,26 @@ func (p *kClient) MarkOrderPaid(ctx context.Context, Req *order.MarkOrderPaidReq
 	_args.Req = Req
 	var _result MarkOrderPaidResult
 	if err = p.c.Call(ctx, "MarkOrderPaid", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateOrder(ctx context.Context, Req *order.UpdateOrderReq) (r *order.UpdateOrderResp, err error) {
+	var _args UpdateOrderArgs
+	_args.Req = Req
+	var _result UpdateOrderResult
+	if err = p.c.Call(ctx, "UpdateOrder", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteOrder(ctx context.Context, Req *order.DeleteOrderReq) (r *order.DeleteOrderResp, err error) {
+	var _args DeleteOrderArgs
+	_args.Req = Req
+	var _result DeleteOrderResult
+	if err = p.c.Call(ctx, "DeleteOrder", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -2,8 +2,8 @@
 package cartservice
 
 import (
-	server "github.com/cloudwego/kitex/server"
 	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
+	server "github.com/cloudwego/kitex/server"
 )
 
 // NewServer creates a server.Server with the given handler and options.

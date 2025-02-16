@@ -4,9 +4,9 @@ package cartservice
 
 import (
 	"context"
+	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.

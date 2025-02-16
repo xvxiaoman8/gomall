@@ -5,10 +5,10 @@ package cartservice
 import (
 	"context"
 	"errors"
+	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"
-	cart "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/cart"
 	proto "google.golang.org/protobuf/proto"
 )
 
