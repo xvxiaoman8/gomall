@@ -12,91 +12,6 @@ var (
 	_ = fastpb.Skip
 )
 
-func (x *RefundReq) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
-	switch number {
-	case 1:
-		offset, err = x.fastReadField1(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 2:
-		offset, err = x.fastReadField2(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 3:
-		offset, err = x.fastReadField3(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 4:
-		offset, err = x.fastReadField4(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	default:
-		offset, err = fastpb.Skip(buf, _type, number)
-		if err != nil {
-			goto SkipFieldError
-		}
-	}
-	return offset, nil
-SkipFieldError:
-	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
-ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_RefundReq[number], err)
-}
-
-func (x *RefundReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Amount, offset, err = fastpb.ReadFloat(buf, _type)
-	return offset, err
-}
-
-func (x *RefundReq) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	var v CreditCardInfo
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.CreditCard = &v
-	return offset, nil
-}
-
-func (x *RefundReq) fastReadField3(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
-	return offset, err
-}
-
-func (x *RefundReq) fastReadField4(buf []byte, _type int8) (offset int, err error) {
-	x.TransactionId, offset, err = fastpb.ReadString(buf, _type)
-	return offset, err
-}
-
-func (x *RefundResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
-	switch number {
-	case 1:
-		offset, err = x.fastReadField1(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	default:
-		offset, err = fastpb.Skip(buf, _type, number)
-		if err != nil {
-			goto SkipFieldError
-		}
-	}
-	return offset, nil
-SkipFieldError:
-	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
-ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_RefundResp[number], err)
-}
-
-func (x *RefundResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Message, offset, err = fastpb.ReadString(buf, _type)
-	return offset, err
-}
-
 func (x *CreditCardInfo) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
@@ -237,65 +152,6 @@ func (x *ChargeResp) fastReadField1(buf []byte, _type int8) (offset int, err err
 	return offset, err
 }
 
-func (x *RefundReq) FastWrite(buf []byte) (offset int) {
-	if x == nil {
-		return offset
-	}
-	offset += x.fastWriteField1(buf[offset:])
-	offset += x.fastWriteField2(buf[offset:])
-	offset += x.fastWriteField3(buf[offset:])
-	offset += x.fastWriteField4(buf[offset:])
-	return offset
-}
-
-func (x *RefundReq) fastWriteField1(buf []byte) (offset int) {
-	if x.Amount == 0 {
-		return offset
-	}
-	offset += fastpb.WriteFloat(buf[offset:], 1, x.GetAmount())
-	return offset
-}
-
-func (x *RefundReq) fastWriteField2(buf []byte) (offset int) {
-	if x.CreditCard == nil {
-		return offset
-	}
-	offset += fastpb.WriteMessage(buf[offset:], 2, x.GetCreditCard())
-	return offset
-}
-
-func (x *RefundReq) fastWriteField3(buf []byte) (offset int) {
-	if x.UserId == 0 {
-		return offset
-	}
-	offset += fastpb.WriteUint32(buf[offset:], 3, x.GetUserId())
-	return offset
-}
-
-func (x *RefundReq) fastWriteField4(buf []byte) (offset int) {
-	if x.TransactionId == "" {
-		return offset
-	}
-	offset += fastpb.WriteString(buf[offset:], 4, x.GetTransactionId())
-	return offset
-}
-
-func (x *RefundResp) FastWrite(buf []byte) (offset int) {
-	if x == nil {
-		return offset
-	}
-	offset += x.fastWriteField1(buf[offset:])
-	return offset
-}
-
-func (x *RefundResp) fastWriteField1(buf []byte) (offset int) {
-	if x.Message == "" {
-		return offset
-	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetMessage())
-	return offset
-}
-
 func (x *CreditCardInfo) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -398,65 +254,6 @@ func (x *ChargeResp) fastWriteField1(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *RefundReq) Size() (n int) {
-	if x == nil {
-		return n
-	}
-	n += x.sizeField1()
-	n += x.sizeField2()
-	n += x.sizeField3()
-	n += x.sizeField4()
-	return n
-}
-
-func (x *RefundReq) sizeField1() (n int) {
-	if x.Amount == 0 {
-		return n
-	}
-	n += fastpb.SizeFloat(1, x.GetAmount())
-	return n
-}
-
-func (x *RefundReq) sizeField2() (n int) {
-	if x.CreditCard == nil {
-		return n
-	}
-	n += fastpb.SizeMessage(2, x.GetCreditCard())
-	return n
-}
-
-func (x *RefundReq) sizeField3() (n int) {
-	if x.UserId == 0 {
-		return n
-	}
-	n += fastpb.SizeUint32(3, x.GetUserId())
-	return n
-}
-
-func (x *RefundReq) sizeField4() (n int) {
-	if x.TransactionId == "" {
-		return n
-	}
-	n += fastpb.SizeString(4, x.GetTransactionId())
-	return n
-}
-
-func (x *RefundResp) Size() (n int) {
-	if x == nil {
-		return n
-	}
-	n += x.sizeField1()
-	return n
-}
-
-func (x *RefundResp) sizeField1() (n int) {
-	if x.Message == "" {
-		return n
-	}
-	n += fastpb.SizeString(1, x.GetMessage())
-	return n
-}
-
 func (x *CreditCardInfo) Size() (n int) {
 	if x == nil {
 		return n
@@ -557,17 +354,6 @@ func (x *ChargeResp) sizeField1() (n int) {
 	}
 	n += fastpb.SizeString(1, x.GetTransactionId())
 	return n
-}
-
-var fieldIDToName_RefundReq = map[int32]string{
-	1: "Amount",
-	2: "CreditCard",
-	3: "UserId",
-	4: "TransactionId",
-}
-
-var fieldIDToName_RefundResp = map[int32]string{
-	1: "Message",
 }
 
 var fieldIDToName_CreditCardInfo = map[int32]string{

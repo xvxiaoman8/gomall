@@ -6,13 +6,12 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	payment "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/payment"
+	payment "github.com/xvxiaoman8/gomall/app/payment/kitex_gen/payment"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	Charge(ctx context.Context, Req *payment.ChargeReq, callOptions ...callopt.Option) (r *payment.ChargeResp, err error)
-	Refund(ctx context.Context, Req *payment.RefundReq, callOptions ...callopt.Option) (r *payment.RefundResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -47,9 +46,4 @@ type kPaymentServiceClient struct {
 func (p *kPaymentServiceClient) Charge(ctx context.Context, Req *payment.ChargeReq, callOptions ...callopt.Option) (r *payment.ChargeResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Charge(ctx, Req)
-}
-
-func (p *kPaymentServiceClient) Refund(ctx context.Context, Req *payment.RefundReq, callOptions ...callopt.Option) (r *payment.RefundResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.Refund(ctx, Req)
 }

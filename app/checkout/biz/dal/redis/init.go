@@ -2,7 +2,7 @@ package redis
 
 import (
 	"context"
-
+	redislock "github.com/jefferyjob/go-redislock"
 	"github.com/redis/go-redis/v9"
 	"github.com/xvxiaoman8/gomall/app/checkout/conf"
 )
@@ -21,4 +21,26 @@ func Init() {
 	if err := RedisClient.Ping(context.Background()).Err(); err != nil {
 		panic(err)
 	}
+}
+
+// NewRedisLock 创建分布式redis锁
+func NewRedisLock(key string, ctx context.Context, opts ...redislock.Option) redislock.RedisLockInter {
+	lock := redislock.New(ctx, RedisClient, key)
+	if lock == nil {
+		panic("redis lock get failed")
+	}
+	return lock
+}
+
+func RedisDo(ctx context.Context, command string, args ...interface{}) (value interface{}, err error) {
+	_, err = RedisClient.Ping(context.Background()).Result()
+	if err != nil {
+		return nil, err
+	}
+	cmd := RedisClient.Do(ctx, command, args)
+	value, err = cmd.Result()
+	if err != nil {
+		return nil, err
+	}
+	return value, nil
 }
