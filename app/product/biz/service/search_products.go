@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"github.com/xvxiaoman8/gomall/app/product/biz/dal/mysql"
-	"github.com/xvxiaoman8/gomall/app/product/model"
+	"github.com/xvxiaoman8/gomall/app/product/biz/model"
 	product "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 )
 

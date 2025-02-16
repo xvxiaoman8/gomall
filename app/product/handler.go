@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	"github.com/xvxiaoman8/gomall/app/product/biz/service"
 	product "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 )

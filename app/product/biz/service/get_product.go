@@ -5,13 +5,14 @@ import (
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/xvxiaoman8/gomall/app/product/biz/dal/mysql"
 	"github.com/xvxiaoman8/gomall/app/product/biz/dal/redis"
-	"github.com/xvxiaoman8/gomall/app/product/model"
+	"github.com/xvxiaoman8/gomall/app/product/biz/model"
 	product "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
 )
 
 type GetProductService struct { // 定义GetProductService结构体
 	ctx context.Context // 定义ctx字段，用于存储请求上下文
 } // NewGetProductService new GetProductService
+
 func NewGetProductService(ctx context.Context) *GetProductService { // 定义NewGetProductService函数，用于创建GetProductService实例
 	return &GetProductService{ctx: ctx} // 返回新的GetProductService实例指针，上下文为传入的ctx
 }
