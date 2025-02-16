@@ -1,20 +1,33 @@
 package main
 
 import (
-	"net"
-	"time"
-
+	"fmt"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	consul "github.com/kitex-contrib/registry-consul"
+	"github.com/xvxiaoman8/gomall/app/checkout/infra/rpc"
+	"github.com/xvxiaoman8/gomall/app/payment/biz/dal"
 	"github.com/xvxiaoman8/gomall/app/payment/conf"
 	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/payment/paymentservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"net"
+	"time"
 )
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("panic recovered:", r)
+		}
+	}()
+	_ = godotenv.Load()
+	dal.Init()
+	rpc.InitClient()
+
 	opts := kitexInit()
 
 	svr := paymentservice.NewServer(new(PaymentServiceImpl), opts...)
@@ -23,6 +36,8 @@ func main() {
 	if err != nil {
 		klog.Error(err.Error())
 	}
+	fmt.Println("payment server started", err)
+
 }
 
 func kitexInit() (opts []server.Option) {
@@ -31,12 +46,16 @@ func kitexInit() (opts []server.Option) {
 	if err != nil {
 		panic(err)
 	}
+	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		fmt.Println("cannot connect to consul", err)
+		klog.Fatal(err)
+	}
 	opts = append(opts, server.WithServiceAddr(addr))
-
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
-	}))
+	}), server.WithRegistry(r))
 
 	// klog
 	logger := kitexlogrus.NewLogger()
