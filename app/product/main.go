@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/joho/godotenv"
+	"github.com/xvxiaoman8/gomall/app/product/biz/dal"
 	"net"
 	"time"
 
@@ -15,6 +17,10 @@ import (
 )
 
 func main() {
+	_ = godotenv.Load() //加载环境变量
+	// 初始化配置
+	dal.Init()
+
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
