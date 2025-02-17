@@ -40,6 +40,7 @@ func NewListProductsService(ctx context.Context) *ListProductsService {
 
 func (s *ListProductsService) Run(req *product.ListProductsReq) (resp *product.ListProductsResp, err error) {
 	// Finish your business logic.
+
 	c, err := model.GetProductsByCategoryName(mysql.DB, s.ctx, req.CategoryName)
 	if err != nil {
 		return nil, err
