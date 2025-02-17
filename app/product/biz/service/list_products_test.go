@@ -21,6 +21,9 @@ import (
 )
 
 func TestListProducts_Run(t *testing.T) {
+	////初始化
+	//dal.Init()
+
 	ctx := context.Background()
 	s := NewListProductsService(ctx)
 	// init req and assert value
