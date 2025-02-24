@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	"github.com/xvxiaoman8/gomall/app/user/biz/service"
+
+	"github.com/xvxiaoman8/gomall/app/auth/biz/service"
 	auth "github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/auth"
 )
 
