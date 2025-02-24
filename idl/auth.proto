@@ -11,6 +11,9 @@ service AuthService {
 
 message DeliverTokenReq {
   int32  user_id= 1;
+  string user_role = 2;  // 用户角色（如 admin、user）
+  string resource =3 ;// 资源路径（如 /data）
+  string action =4; // 操作类型（如 GET、POST）
 }
 
 message VerifyTokenReq {

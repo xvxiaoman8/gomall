@@ -1,0 +1,5 @@
+p, admin, /data, POST        # 允许角色admin对资源/data执行POST操作
+p, seller, /data, GET        # 允许角色seller对资源/data执行GET操作
+p, customer, /data, GET        # 允许角色customer对资源/data执行GET操作
+g, alice, admin              # 用户alice属于角色admin
+g, bob, seller              # 用户bob属于角色seller

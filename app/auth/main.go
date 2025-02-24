@@ -74,8 +74,8 @@ func kitexInit() (opts []server.Option) {
 }
 
 func initCasbin() *casbin.Enforcer {
-	modelPath := filepath.Join("conf", "model.conf")
-	policyPath := filepath.Join("conf", "policy.csv")
+	modelPath := filepath.Join("conf/casbin", "model.conf")
+	policyPath := filepath.Join("conf/casbin", "policy.csv")
 
 	enforcer, err := casbin.NewEnforcer(modelPath, policyPath)
 	if err != nil {
