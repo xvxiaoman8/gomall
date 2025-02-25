@@ -41,13 +41,16 @@ func NewListProductsService(ctx context.Context) *ListProductsService {
 func (s *ListProductsService) Run(req *product.ListProductsReq) (resp *product.ListProductsResp, err error) {
 	// Finish your business logic.
 
+	// 根据分类名称获取产品列表
 	c, err := model.GetProductsByCategoryName(mysql.DB, s.ctx, req.CategoryName)
 	if err != nil {
 		return nil, err
 	}
 	resp = &product.ListProductsResp{}
+	// 遍历产品列表
 	for _, v1 := range c {
 		for _, v := range v1.Products {
+			// 将产品信息添加到响应中
 			resp.Products = append(resp.Products, &product.Product{Id: uint32(v.ID), Name: v.Name, Description: v.Description, Picture: v.Picture, Price: v.Price})
 		}
 	}
