@@ -15,11 +15,11 @@
 package main
 
 import (
+	"gopkg.in/natefinch/lumberjack.v2"
 	"net"
 	"strings"
 
 	"github.com/xvxiaoman8/gomall/common/serversuite"
-	"gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
