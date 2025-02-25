@@ -5,7 +5,6 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
-	"github.com/xvxiaoman8/gomall/app/checkout/infra/rpc"
 	"github.com/xvxiaoman8/gomall/app/payment/biz/dal"
 	"github.com/xvxiaoman8/gomall/app/payment/conf"
 	"github.com/xvxiaoman8/gomall/common/mtl"
@@ -36,7 +35,6 @@ func main() {
 	mtl.InitMetric(serviceName, conf.GetConf().Kitex.MetricsPort, conf.GetConf().Registry.RegistryAddress[0])
 
 	dal.Init()
-	rpc.InitClient()
 
 	opts := kitexInit()
 

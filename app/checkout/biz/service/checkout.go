@@ -26,7 +26,12 @@ func NewCheckoutService(ctx context.Context) *CheckoutService {
 
 // Run create note info
 func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.CheckoutResp, err error) {
+	fmt.Println(req)
+	if rpc.CartClient == nil {
+		fmt.Println("CartClient is nil")
+	}
 	cartResult, err := rpc.CartClient.GetCart(s.ctx, &cart.GetCartReq{UserId: req.UserId})
+
 	if err != nil {
 		klog.Error(err)
 		err = fmt.Errorf("GetCart.err:%v", err)
@@ -42,9 +47,11 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	)
 	for _, cartItem := range cartResult.Cart.Items {
 		var (
-			cost     float32
-			stockInt int32
-			ok       bool
+			cost       float32
+			stockInt   int
+			stockInt32 int32
+			stockStr   string
+			ok         bool
 		)
 		productResp, resultErr := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{Id: cartItem.ProductId})
 		if resultErr != nil {
@@ -62,6 +69,7 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 			klog.Error(err)
 			return nil, err
 		}
+		fmt.Println("init stock success")
 		//查redis库存
 		//加上分布式锁
 		//十秒超时
@@ -82,25 +90,31 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 				return
 			}
 		}()
-		args := []interface{}{strconv.Itoa(int(p.Id)) + "_stock"}
-		stock, err := redis.RedisDo(s.ctx, "GET", args)
+
+		stock, err := redis.RedisDo(s.ctx, "GET", strconv.Itoa(int(p.Id))+"_stock")
 		if err != nil {
 			goto ERR
 		}
-		stockInt, ok = stock.(int32)
+		// 类型断言为 string
+		stockStr, ok = stock.(string)
 		if !ok {
-			err = errors.New("stock is not int")
+			err = errors.New("stock is not a string")
 			goto ERR
 		}
+		// 将 string 转换为 int
+		stockInt, err = strconv.Atoi(stockStr)
+		if err != nil {
+			goto ERR
+		}
+		stockInt32 = int32(stockInt)
 		//检查库存
-		if stockInt <= cartItem.Quantity {
+		if stockInt32 <= cartItem.Quantity {
 			err = errors.New("stock is not enough")
 			goto ERR
 		}
 		//减库存
-		stockInt -= cartItem.Quantity
-		args = []interface{}{strconv.Itoa(int(p.Id)) + "_stock", stockInt}
-		_, err = redis.RedisDo(s.ctx, "SET", args)
+		stockInt32 -= cartItem.Quantity
+		_, err = redis.RedisDo(s.ctx, "SET", strconv.Itoa(int(p.Id))+"_stock", stockInt)
 		if err != nil {
 			goto ERR
 		}
@@ -196,7 +210,6 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	return
 }
 func InitStock(ctx context.Context, ID int, amount int) error {
-	args := []interface{}{strconv.Itoa(ID) + "_stock", amount}
-	_, err := redis.RedisDo(ctx, "SET", args)
+	_, err := redis.RedisDo(ctx, "SET", strconv.Itoa(ID)+"_stock", amount)
 	return err
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/xvxiaoman8/gomall/app/checkout/biz/dal"
 	"github.com/xvxiaoman8/gomall/app/checkout/conf"
+	"github.com/xvxiaoman8/gomall/app/checkout/infra/rpc"
 	"github.com/xvxiaoman8/gomall/common/mtl"
 	"github.com/xvxiaoman8/gomall/common/serversuite"
 	"github.com/xvxiaoman8/gomall/common/utils"
@@ -32,6 +33,7 @@ func main() {
 	//mq.NewConnCh()
 	//defer mq.ConnClose()
 	dal.Init()
+	rpc.InitClient()
 	opts := kitexInit()
 
 	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)

@@ -32,12 +32,13 @@ func NewRedisLock(key string, ctx context.Context, opts ...redislock.Option) red
 	return lock
 }
 
-func RedisDo(ctx context.Context, command string, args ...interface{}) (value interface{}, err error) {
+func RedisDo(ctx context.Context, args ...any) (value interface{}, err error) {
 	_, err = RedisClient.Ping(context.Background()).Result()
 	if err != nil {
 		return nil, err
 	}
-	cmd := RedisClient.Do(ctx, command, args)
+	// 正确调用 RedisClient.Do 方法
+	cmd := RedisClient.Do(ctx, args...)
 	value, err = cmd.Result()
 	if err != nil {
 		return nil, err
