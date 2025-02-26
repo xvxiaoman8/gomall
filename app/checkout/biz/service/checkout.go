@@ -4,6 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/cloudwego/kitex/pkg/klog"
 	redislock "github.com/jefferyjob/go-redislock"
 	"github.com/xvxiaoman8/gomall/app/checkout/biz/dal/redis"
@@ -13,8 +16,6 @@ import (
 	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/order"
 	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/xvxiaoman8/gomall/rpc_gen/kitex_gen/product"
-	"strconv"
-	"time"
 )
 
 type CheckoutService struct {
@@ -135,7 +136,7 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	ERR:
 		klog.Error(err)
 		unlockSignal <- true
-		return nil, err
+		//return nil, err
 	}
 
 	//创建订单

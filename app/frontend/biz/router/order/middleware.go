@@ -30,3 +30,33 @@ func _orderlistMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _orderMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _updateorderMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _updateMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _updateorderpageMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _deleteMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _deleteorderMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

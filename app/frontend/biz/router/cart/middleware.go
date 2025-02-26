@@ -35,3 +35,13 @@ func _getcartMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _cartMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _emptycartMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
