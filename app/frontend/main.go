@@ -18,6 +18,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/cloudwego/hertz/pkg/app"
@@ -105,7 +106,22 @@ Disallow: /`))
 		})
 	}
 
+	//TODO 静态文件路由 怀疑出错地
 	h.Static("/static", "./")
+
+	// 添加测试路由，用于调试
+	h.GET("/test-image", func(ctx context.Context, c *app.RequestContext) {
+		pwd, _ := os.Getwd()
+		files, _ := os.ReadDir("d:/github/gomall/app/frontend/static/image")
+		var fileList string
+		for _, file := range files {
+			fileList += file.Name() + "\n"
+		}
+		c.String(200, fmt.Sprintf("工作目录: %s\n静态文件目录: %s\n文件列表:\n%s",
+			pwd,
+			"d:/github/gomall/app/frontend/static/image",
+			fileList))
+	})
 
 	h.Spin()
 }
